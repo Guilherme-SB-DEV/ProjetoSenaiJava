@@ -1,4 +1,4 @@
-package trabalhoLucas;
+package users;
 
 public class Medico{
 	private String crm;
