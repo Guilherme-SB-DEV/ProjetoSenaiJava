@@ -7,9 +7,8 @@ import java.util.List;
 import users.Usr;
 public class DAO {
     public static String instrucao_select = "SELECT * FROM sla;";
-    public static String instrucao_insert = "INSERT INTO sla(nome, idade) VALUES (?,?,?,?,?);";
-    public static String instrucao_update = "UPDATE sla SET nome=?, idade=? WHERE id =?;";
-    public static String instrucao_delete = "DELETE FROM new_table WHERE id = ?;";
+    public static String instrucao_insert = "INSERT INTO sla(nome, cidade, bairro, ddd, numero, cpf) VALUES (?,?,?,?,?,?);";
+    public static String instrucao_delete = "DELETE FROM sla WHERE id = ?;";
         public static List<Usr> consulta(){
             try{
                 List<Usr> array = new LinkedList<>(); //inicia arrayList de usuarios
@@ -37,7 +36,7 @@ public class DAO {
             }
         }
         
-        public static Boolean insert(String nome, String cidade, String bairro, String ddd, String cpf){
+        public static Boolean insert(String nome, String cidade, String bairro, String ddd, String numero, String cpf){
             try{
                 Connection con = open();
                 PreparedStatement stm = con.prepareStatement(instrucao_insert);
@@ -45,7 +44,8 @@ public class DAO {
                 stm.setString(2, cidade);
                 stm.setString(3, bairro);
                 stm.setString(4, ddd);
-                stm.setString(5, cpf);
+                stm.setString(5, numero);
+                stm.setString(6, cpf);
                 stm.execute();
             return true;
             }catch(Exception ex){
@@ -53,13 +53,34 @@ public class DAO {
                 return false;
             }
         }
-        public static Boolean update(int id, String new_nome, int new_idade){
+        public static Boolean update(int id, String decisao, String valor){
             try {
                 Connection con = open();
-                PreparedStatement stm = con.prepareStatement(instrucao_update);
-                stm.setString(1, new_nome);
-                stm.setInt(2, new_idade);
-                stm.setInt(3, id);
+                PreparedStatement stm;
+                switch (decisao) {
+                    case "nome":
+                        stm = con.prepareStatement("UPDATE sla SET nome=? WHERE id =?;");
+                        break;
+                    case "cidade":
+                        stm = con.prepareStatement("UPDATE sla SET cidade=? WHERE id =?;");
+                        break;
+                    case "bairro":
+                        stm = con.prepareStatement("UPDATE sla SET bairro=? WHERE id =?;");
+                        break;
+                    case "ddd":
+                        stm = con.prepareStatement("UPDATE sla SET ddd=? WHERE id =?;");
+                        break;
+                    case "numero":
+                        stm = con.prepareStatement("UPDATE sla SET numero=? WHERE id =?;");
+                        break;
+                    case "cpf":
+                        stm = con.prepareStatement("UPDATE sla SET cpf=? WHERE id =?;");
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+                stm.setString(1, valor);
+                stm.setInt(2, id);
                 stm.execute();
                 
                 return true;
