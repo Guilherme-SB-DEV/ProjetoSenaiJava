@@ -10,6 +10,7 @@ public class Usr {
 	private String numero;
 	private Date dataNascimento;
 	private String cpf;
+        private int idade;
 	
 	public String toString() {
 		return getNome() + getCidade() + getBairro() + getDdd() + getNumero() + getCpf();
@@ -111,6 +112,20 @@ public class Usr {
      */
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    /**
+     * @return the idade
+     */
+    public int getIdade() {
+        return idade;
+    }
+
+    /**
+     * @param idade the idade to set
+     */
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
 }
