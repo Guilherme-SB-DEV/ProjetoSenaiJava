@@ -30,7 +30,7 @@ public class DAO_Paciente {
                     usrPaciente.setDescricaoNecessidade(rs.getString("DescricaoNecessidades"));
                     usrPaciente.setDdd(rs.getString("ddd"));
                     usrPaciente.setNumero(rs.getString("numero"));
-                    usrPaciente.setIdade(rs.getString("idadePaciente"));
+                    usrPaciente.setIdade(rs.getInt("idadePaciente"));
                     usrPaciente.setSenhaPaciente(rs.getString("senhaPaciente"));
                     //add objeto no arrayList
                     arrayPaciente.add(usrPaciente);
